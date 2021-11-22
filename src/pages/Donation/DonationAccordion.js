@@ -72,3 +72,6 @@ export default function ControlledAccordions() {
     </div>
   );
 }
+
+/* Rectangle 47 */
+

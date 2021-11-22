@@ -69,7 +69,11 @@ const styles = theme => ({
     backgroundColor:'white',
     color:'#194db0',
     fontWeight:'bold'
-  }
+  },
+  large: {
+    width: "100px",
+    height: "100px",
+},
 });
 
 function MainLayout(props) {
@@ -116,44 +120,50 @@ function MainLayout(props) {
           />
           <IconButton><NotifIcon style={{fill:'white'}}/></IconButton>
           <IconButton 
-<<<<<<< HEAD
-              component={Link}
-              to='/profile' ><ProfileIcon style={{fill:'white'}}/></IconButton>
-=======
-              component={Link} onClick={handleopenUser}><ProfileIcon /></IconButton>
+              component={Link} onClick={handleopenUser}><ProfileIcon style={{fill:'white'}}/></IconButton>
           <Dialog
-          open={openUser}
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <DialogTitle maxWidth="md" classes={{ paper: classes.dialogWrapper }}>
-          <div style={{display: 'inline-block'}}>
-                    <Avatar alt="PlaceHolder" src={pholder} className={classes.large} />
-                </div>
-                <div style={{display: 'inline-block', marginLeft:'10px'}}>
-                    <Typography variant="body1" component="div">Lee</Typography>
-                    <Typography variant="body1" component="div" color = "grey">Email@email.com</Typography>
-                </div>
-                  <div style={{ display: 'flex' }}>
-                      <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
-                      </Typography>
-                      <Controls.ActionButton
-                          color="secondary"
+            open={openUser}
+          >
+
+          <div style={{marginLeft:"250px"}}>
+          <Controls.ActionButton
+                          
                           onClick={handleCloseUser}>
                           <CloseIcon />
                       </Controls.ActionButton>
-        
+                </div>
+                <div style={{marginLeft:"100px"}}>
+                <Avatar alt="PlaceHolder" src={pholder} className={classes.large} />
+                </div>
+                <div style={{marginLeft:"140px", fontFamily: "Lato", size: "24px"}}>
+                    <Typography variant="body1" component="div">Lee</Typography>
+                    </div>
+                    <br></br>
+                    <div style={{marginLeft:"100px", fontFamily: "Lato", size: "16px", color: "#B4B4B4"}}>
+                    <Typography variant="body1" component="div" color = "grey">Email@email.com</Typography>
+                </div>
+                  <div>
+                      
                       <NavLink to="/profile">
+                      <div style={{fontFamily: "Lato", size: "18px", marginLeft: "0px"}}>
                       Settings
+                      </div>
+                    </NavLink>
+
+                    <NavLink to="/login" >
+                    <div style={{fontFamily: "Lato", size: "18px", align: "left"}}>
+                      Help
+                      </div>
                     </NavLink>
       
-                    <NavLink to="/login" handleClick={() => {authService.logOut();}}>
-                       log out
+                    <NavLink to="/login" >
+                    <div style={{fontFamily: "Lato", size: "18px", align: "left"}}>
+                       Sign out
+                       </div>
                     </NavLink>
    
                   </div>
-            </DialogTitle>
         </Dialog>
->>>>>>> pyx2
         </Toolbar>
       </AppBar>
 

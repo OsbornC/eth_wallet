@@ -21,7 +21,9 @@ import Controls from '../../controls/Controls';
 import { Search } from "@material-ui/icons";
 import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import Popup from "../../pages/Popup";
+import { styled } from '@mui/material/styles';
+import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 const Data = [
   {name: 'Jack', status: 'Verified Vender'},
@@ -64,23 +66,38 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-        height:'75vh'
+      flexGrow: 1,
+      backgroundColor: "#F5F9FF",
+      height:'629px',
+      width:'1256px',
+      borderRadius:'25px',
+      marginLeft: "100px",
+      font: "Lato"
     },
     pageContent: {
         margin: theme.spacing(5),
-        padding: theme.spacing(3)
+        padding: theme.spacing(3),
     },
     searchInput: {
-        width: '100%'
+      width: '100%',
+      backgroundColor: "white",
+      marginBottom:"2%",
     },
     large: {
         width: theme.spacing(12),
         height: theme.spacing(12),
     },
+    medium: {
+      width: theme.spacing(8),
+      height: theme.spacing(8),
+  },
     paymentCard: {
-        marginBottom: theme.spacing(2)
+        marginBottom: theme.spacing(2),
+    },
+    textF: {
+      "& .MuiFilledInput-root": {
+        background: "rgb(255, 255, 255)"
+      }
     }
 }));
 
@@ -116,91 +133,164 @@ export default function Profile() {
   const handleSubmit = (event) => {
     setSubmit(!submit)
   }
+
+  const Input = styled('input')({
+    display: 'none',
+  });
+  
   
 
   return (
+    <div>
+          <div style={{display: 'inline-block', fontFamily: "Lato", size: "24px", ineHeight: "29px", lineHeight: "100%", verticalAlign: "top"}}><Typography variant="h6" id="tableTitle" component="div">Settings</Typography> </div>
+
     <div className={classes.root}>
-    <div><Typography variant="h6" id="tableTitle" component="div">Settings</Typography> </div>
-      <AppBar position="static">
+      <AppBar position="static" >
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Profile" {...a11yProps(0)} />
           <Tab label="Validation" {...a11yProps(1)} />
           <Tab label="Contact" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
+
       <TabPanel value={value} index={0}>
-            <div>Status: not validated
-                <Typography variant="h6" component="div">User A's Profile</Typography>
+            <div style={{color:"#000000", fontFamily: "Lato", size: "24px"}}> 
+                <Typography variant="h6" component="div" >Lee's Profile</Typography>
                 <div style={{display: 'inline-block'}}>
                     <Avatar alt="PlaceHolder" src={pholder} className={classes.large} />
                 </div>
-                <div style={{display: 'inline-block'}}>
+                <div style={{fontFamily: "Lato", size: "18px", marginTop: "-70px", marginLeft: "110px"}}>
                     <Typography variant="body1" component="div">Change/Upload Profile Picture</Typography>
-                    <UploadButtons/>
+              <div style={{display: 'inline-block', marginLeft:'100px', marginTop: "-500px", fontFamily: "Lato", size: "14px"}}>
+              <label htmlFor="contained-button-file">
+            <Input accept="image/*" id="contained-button-file" multiple type="file" />
+            <Button size = "large" variant="contained" component="span" style={{color:"primary", display: 'inline-block', 
+            width: "120px", height: "32px", marginLeft: "-100px", marginTop: "20px", fontFamily: "Lato", size: "10px", align: "center"}}>
+              upload
+            </Button>
+           </label>
+           </div>
                 </div>
             </div>
-            <div>
+            <br></br>
+            <br></br>
+            <div style={{display: 'inline-block', fontFamily: "Lato", size: "20px", fontStyle: "Bold"}}>
                 <Typography variant="h6" component="div">Payment Method</Typography>
+                </div>
+
+                <div style={{display: 'inline-block', fontFamily: "Lato", size: "16px", Align: "center", marginLeft: "20px", lineHeight: "19px",
+lineHeight: "100%", lineClamp: "165px"}}> 
                 <Button variant="contained" color="primary">Add A Payment Method</Button>
-                
+          </div>
+
+          <div style={{borderRadius: "13px", lineHeight: "19px", lineHeight: "100%", width: "805px", height: "80px"}}>
+          <br></br>
+
                 <Card className={classes.paymentCcard}>
                 <CardContent>
-                    <Typography variant="body1" component="div">Account 1: xxxxxxxx</Typography>
+                  <div style={{display: 'inline-block', fontFamily: "Lato", fontStyle: "Bold", size: "16px", color: "#4E4E4E"}}>
+                    <Typography variant="body1" component="div">email123@email.com</Typography>
+                    </div>
+                    <div style={{display: 'inline-block', fontFamily: "Lato", fontStyle: "Bold", size: "16px", color: "#7EA6F4", marginLeft: "20px"}}>
+                    <Typography variant="body1" component="div">Verified Vendor</Typography>
+                    </div>
+                    <div style={{display: 'inline-block', marginLeft:'350px'}}>
                     <IconButton><RemoveIcon/></IconButton>
+                    </div>
+                    <div style={{display: 'inline-block', fontFamily: "Lato", size: "14px", color: "#4E4E4E"}}>
+                    <Typography variant="body1" component="div">0x98BfA478D7e25f4A424c8f1E96A190368D118b22</Typography>
+                    </div>
                 </CardContent>
                 </Card>
 
+                <br></br>
+                <br></br>
+                
                 <Card className={classes.paymentCard}>
                 <CardContent>
-                    <Typography variant="body1" component="div">Account 2: xxxxxxxx</Typography>
+                <div style={{display: 'inline-block', fontFamily: "Lato", fontStyle: "Bold", size: "16px", color: "#4E4E4E"}}>
+                    <Typography variant="body1" component="div">email123@email.com</Typography>
+                    </div>
+                    <div style={{display: 'inline-block', fontFamily: "Lato", fontStyle: "Bold", size: "16px", color: "#7EA6F4", marginLeft: "20px"}}>
+                    <Typography variant="body1" component="div">Verified Receiver</Typography>
+                    </div>
+                    <div style={{display: 'inline-block', marginLeft:'342px'}}>
                     <IconButton><RemoveIcon/></IconButton>
+                    </div>
+                    <div style={{display: 'inline-block', fontFamily: "Lato", size: "14px", color: "#4E4E4E"}}>
+                    <Typography variant="body1" component="div">0x98BfA478D7e25f4A424c8f1E96A190368D118b22</Typography>
+                    </div>
                 </CardContent>
                 </Card>
             </div>
       </TabPanel>
+
       <TabPanel value={value} index={1}>
             <div>
             <div>
-              {/* {submit?<h1>1</h1>:<h1>2</h1>} */}
-              {submit?<div>
+              {submit?<div style={{fontFamily: "Lato", size: "24px", fontStyle: "Bold"}}>
             <Typography variant="h6" component="div">Validate your identity</Typography>
-            <Card className={classes.paymentCcard}>
+            <br></br>
+            <div>
+            <Card style={{width: "621px", height: "112px", borderRadius: "5px"}} className={classes.paymentCcard}>
                 <CardContent>
-                <div style={{display: 'inline-block'}}>
-                    <Avatar alt="PlaceHolder" src={pholder} className={classes.large} />
+                <div style={{display: 'inline-block', marginLeft: "20px", marginTop: "10px"}}>
+                    <Avatar alt="PlaceHolder" src={pholder} className={classes.medium} />
                 </div>
-                <div style={{display: 'inline-block', marginLeft:'10px'}}>
+                <div style={{marginLeft:'100px', marginTop: "-50px", fontFamily: "Lato", size: "24px"}}>
                     <Typography variant="body1" component="div">Lee</Typography>
                 </div>
-                <div style={{display: 'inline-block', marginLeft:'1000px'}}>
+                <div style={{marginLeft:'400px', marginTop: "-25px", fontFamily: "Lato", size: "16px"}}>
+                    <Typography variant="body1" component="div">In Progress</Typography>
+                </div>
+                <div style={{marginLeft:'500px', marginTop: "-35px"}}>
                     <IconButton><RemoveIcon/></IconButton>
                 </div>
                 </CardContent>
                 </Card>
+                </div >
+                <div style={{marginLeft:'700px', marginTop: "-110px", fontFamily: "Lato", size: "20px"}}>
                 <Typography variant="body1" component="div">Add another validation or add more documents?</Typography>
+                </div>
                 <br></br>
-                <Button onClick={handleSubmit} size="large" style={{display: 'inline-block'}} variant="contained" color="primary">Add Validation</Button>
+                <Button onClick={handleSubmit} size="large" style={{display: 'inline-block', marginLeft: "700px", marginTop: "0px", height: "48px"}} 
+                variant="contained" color="primary">Add Validation</Button>
                 <br></br>
                 <br></br>
-                  <Button size="small" color="#bbdefb" variant="contained" component="span">
-                    Upload Flie<UploadButtons/>
-                  </Button>
+                <div style={{display: 'inline-block', marginLeft:'700px', marginTop: "-500px", fontFamily: "Lato", size: "20px"}}>
+                <label htmlFor="contained-button-file">
+            <Input accept="image/*" id="contained-button-file" multiple type="file" />
+            <Button size = "large" variant="contained" component="span" color = "#CEE2FF" style={{color:"primary", display: 'inline-block', 
+            width: "138px", height: "48px", marginLeft: "250px", marginTop: "-128px"}}>
+              <div style = {{marginLeft: "12px", marginTop: "5px"}}>
+              Add File
+              </div>
+            </Button>
+           </label>
+           </div>
             </div> :
-            <div><Typography variant="h6" component="div">Validate your identity</Typography>
+            <div style={{fontFamily: "Lato", size: "24px", fontStyle: "Bold"}}><Typography variant="h6" component="div">Validate your identity</Typography>
             <br></br>
-            <div><Typography variant="body1" component="div"><b>User A</b> Status: not validated </Typography>
-            <div style={{display: 'inline-block'}}>
+            <div>
+            <div style={{display: 'inline-block', fontFamily: "Lato", size: "24px"}}>
+              <Typography variant="body1" component="div"><b>User A </b>  Status: not validated <HelpOutlineIcon></HelpOutlineIcon></Typography>
+              </div>
+
+            <div style={{width: "900px", height: "174px", marginTop: "20px", fill: "white", borderRadius: "10px", stroke: "solid"}}>
             <TextField 
               fullWidth
+              className={classes.textF}
               id="standard-multiline-static"
               label="Multiline"
               multiline
-              rows={15}
+              rows={10}
               label="Brief statement of your reason for validation"
               id="Type in here"
               defaultValue="Type in here"
               variant="filled"
             />
+            </div>
+            <div style={{width: "831px", height: "174px", marginTop: "20px", fill: "white", borderRadius: "10px", stroke: "solid"}}>
             <Box
               sx={{
                 display: 'flex',
@@ -212,12 +302,23 @@ export default function Profile() {
               >
             </Box>
             <br></br>
-            <Button size="small" color="#bbdefb" variant="contained" component="span">
-              Upload <UploadButtons/>
+            <label htmlFor="contained-button-file">
+            <Input accept="image/*" id="contained-button-file" multiple type="file" />
+            <Button size = "large" variant="contained" component="span" color = "#CEE2FF" style={{display: 'inline-block', width: "138px", height: "48px", marginTop: "70px"}}>
+              <div style = {{marginLeft: "12px", marginTop: "5px"}}>
+              Add File
+              </div>
             </Button>
+
+            <div className="poster1">
+              <div style={{display: 'inline-block', color: "white", marginLeft: "30px", marginTop: "20px"}}>
+            <HorizontalRuleIcon></HorizontalRuleIcon>
+                  </div></div>
+            <div className="poster2"></div>
+           </label>
             <br></br>
             <br></br>
-            <Button onClick={handleSubmit} size="large" style={{display: 'inline-block'}} variant="contained" color="primary">Submit</Button>
+            <Button onClick={handleSubmit} size="large" style={{display: 'inline-block', width: "138px", height: "48px"}} variant="contained" color="primary">Submit</Button>
             <br></br>
             <br></br>
           </div></div></div>
@@ -245,7 +346,8 @@ export default function Profile() {
           {/* {arr} */}
           {found && found.length > 0 ? (
             found.map((d) => (
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={12}>
+                      <div style = {{width: "805px", height: "80px", borderRadius: "13px", marginLeft: "20px"}}>
                     <Card variant="outlined">
                         <CardActionArea>
                         <CardContent>
@@ -255,6 +357,7 @@ export default function Profile() {
                         </CardContent>
                     </CardActionArea>
                     </Card>
+                    </div>
                 </Grid>
             ))
           ) : (
@@ -277,6 +380,7 @@ export default function Profile() {
         </Grid>
 
       </TabPanel>
+    </div>
     </div>
   );
 }

@@ -22,6 +22,42 @@ import Typography from "@material-ui/core/Typography";
 import Paper from '@material-ui/core/Paper';
 import { Table} from '@material-ui/core';
 import HomeSend from '../../balance/components/HomeSend';
+import Box from '@material-ui/core/Box';
+import PropTypes from 'prop-types';
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 
 class  FAQ extends Component {
   async componentWillMount() {
@@ -73,28 +109,15 @@ class  FAQ extends Component {
       balance: 0,
       from_transactions: [],
       to_transactions: [],
-      transactions: [],
       seen:false,
-      from_or_to: "from",
+      value: 0
     }
 
     this.transfer = this.transfer.bind(this)
   }
-
-  handleChange1 =()=> {
+  handleChange = (event, newValue) => {
     this.setState({
-      from_or_to: "from"
-    })
-    this.setState({
-      transactions: this.state.from_transactions
-    })
-  };
-  handleChange2 =()=> {
-    this.setState({
-      from_or_to: "to"
-    })
-    this.setState({
-      transactions: this.state.to_transactions
+      value: newValue
     })
   };
   togglePop = () => {
@@ -103,16 +126,21 @@ class  FAQ extends Component {
     });
   };
 
+
   render() {
     return (
         <div>
        <CssBaseline />
        <AppBar position="static">
-       <Tabs aria-label="simple tabs example" centered>
-           <Tab label="From" onClick={this.handleChange1}/>
-           <Tab label="To" onClick={this.handleChange2}/>
+       <Tabs value={this.state.value} aria-label="simple tabs example" 
+       onChange={this.handleChange}
+       centered style={{backgroundColor:'#194db0'}} 
+       TabIndicatorProps={{style: {background:'#FD8024'}}}>
+           <Tab label="From" {...a11yProps(0)}/>
+           <Tab label="To" {...a11yProps(1)}/>
          </Tabs>
        </AppBar>
+       <TabPanel value={this.state.value} index={0} style={{height:'77vh'}}>
        {/* <Table columns={col} /> */}
           <div className="mainblock" id="transactionTable">
           <Paper>
@@ -125,13 +153,13 @@ class  FAQ extends Component {
                   Info
                 </TableCell>
                   <TableRow>
-                    <TableCell>{this.state.from_or_to==="from"?"Sender":"Receiver"}</TableCell>
+                    <TableCell>Sender</TableCell>
                     <TableCell>Transaction ID</TableCell>
                     <TableCell >Amount</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                { this.state.transactions.map((tx, key) => {
+                { this.state.from_transactions.map((tx, key) => {
                       return (
                         <TableRow key={key}>
                         <TableCell >{tx.returnValues.to}</TableCell>
@@ -144,6 +172,37 @@ class  FAQ extends Component {
               </Table>
             </Paper>
           </div>
+          </TabPanel>
+          <TabPanel value={this.state.value} index={1}>
+          <Paper>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableCell>
+                  Name
+                </TableCell>
+                <TableCell >
+                  Info
+                </TableCell>
+                  <TableRow>
+                    <TableCell>Receiver</TableCell>
+                    <TableCell>Transaction ID</TableCell>
+                    <TableCell >Amount</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                { this.state.to_transactions.map((tx, key) => {
+                      return (
+                        <TableRow key={key}>
+                        <TableCell >{tx.returnValues.to}</TableCell>
+                        <TableCell>{tx.id}</TableCell>
+                        <TableCell>{window.web3.utils.fromWei(tx.returnValues.value.toString(), 'Ether')}</TableCell>
+                      </TableRow>
+                      )
+                    }) }
+                </TableBody>
+              </Table>
+            </Paper>
+          </TabPanel>
           </div>
     );
   }
