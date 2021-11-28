@@ -1,0 +1,6 @@
+GET http://localhost:4000/app/donatedAddress
+Content-Type: application/json
+
+{
+    "userId": "6199e4b57eb3fcdcfb0c79851"
+}

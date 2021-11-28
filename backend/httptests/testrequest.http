@@ -1,0 +1,11 @@
+POST http://localhost:4000/app/request
+Content-Type: application/json
+
+{
+    "requestId": "id99",
+    "userId": "id2",
+    "amount": 999,
+    "title": "11-21donateTest",
+    "reason": "test",
+    "description": "test"
+} 

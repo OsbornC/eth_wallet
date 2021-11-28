@@ -1,0 +1,10 @@
+POST http://localhost:4000/app/donate
+Content-Type: application/json
+
+{
+    "userId": "6199e769ba841f4cfac9adb6",
+    "receiver": "0x847d2827188fA5Da7b4b20AaA3d5BbB449Cf0AFb",
+    "amount": 100,
+    "frequency": "weekly",
+    "payAccount": "ethwallet"
+}

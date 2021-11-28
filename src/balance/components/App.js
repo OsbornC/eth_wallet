@@ -3,6 +3,14 @@ import daiLogo from '../dai-logo.png';
 import './App.css';
 import Web3 from 'web3';
 import XYZ from '../abis/XYZ.json'
+import { get } from "axios";
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from "@material-ui/core/Typography";
+import Paper from '@material-ui/core/Paper';
+import { Table , TableHead, TableRow, TableCell, TableBody} from '@material-ui/core';
+import HomeSend from './HomeSend';
+import TableContainer from '@material-ui/core/TableContainer';
 
 class Home extends Component {
   async componentWillMount() {
@@ -23,12 +31,11 @@ class Home extends Component {
     }
   }
 
-  async loadBlockchainData() {
+  async loadBlockchainData() { 
     const web3 = window.web3
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
-    console.log(accounts)
-    const XYZAddress = "0x4Dc973cF34CB1845f2F36491bdB6Fa622932c2B2" // Replace DAI Address Here
+    const XYZAddress = "0x8b0070828f11247Ed1f479927df558a199342239" // Replace DAI Address Here
     const daiTokenMock = new web3.eth.Contract(XYZ.abi, XYZAddress)
 
     this.setState({ daiTokenMock: daiTokenMock })
@@ -37,6 +44,7 @@ class Home extends Component {
     this.setState({ balance: web3.utils.fromWei(balance.toString(), 'Ether') })
     const transactions = await daiTokenMock.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { from: this.state.account } })
     this.setState({ transactions: transactions })
+    console.log(transactions);
     console.log(web3.utils.fromWei(balance.toString(), 'Ether'));
   }
 
@@ -50,86 +58,81 @@ class Home extends Component {
       account: '',
       daiTokenMock: null,
       balance: 0,
-      transactions: []
+      transactions: [],
+      seen:false
     }
 
     this.transfer = this.transfer.bind(this)
   }
 
+  togglePop = () => {
+    this.setState({
+      seen: !this.state.seen
+    });
+  };
+
   render() {
     return (
-      <div>
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-          <a
-            className="navbar-brand col-sm-3 col-md-2 mr-0"
-            href="http://www.dappuniversity.com/bootcamp"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Dapp University
-          </a>
-        </nav>
-        <div className="container-fluid mt-5">
-          <div className="row">
-            <main role="main" className="col-lg-12 d-flex text-center">
-              <div className="content mr-auto ml-auto" style={{ width: "500px" }}>
-                <a
-                  href="http://www.dappuniversity.com/bootcamp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={daiLogo} width="150" />
-                </a>
-                <h1>{this.state.balance} DAI</h1>
-                <form onSubmit={(event) => {
-                  event.preventDefault()
-                  const recipient = this.recipient.value
-                  const amount = window.web3.utils.toWei(this.amount.value, 'Ether')
-                  this.transfer(recipient, amount)
-                  
-                }}>
-                  <div className="form-group mr-sm-2">
-                    <input
-                      id="recipient"
-                      type="text"
-                      ref={(input) => { this.recipient = input }}
-                      className="form-control"
-                      placeholder="Recipient Address"
-                      required />
+      <div className = "main">
+          
+          <div className="mainblockContain">
+          <div className="mainblock" id="balance">
+            <div style={{marginBottom:"50px", marginLeft:"30px"}}>
+              <p className="darkp" >Welcome Back!</p>
+            </div>
+              <Card id="balanceCard">
+                <CardContent id="balanceContent">
+                <p className="darkp">Balance</p>
+                <div className="cardMain">
+                  <div className="cardContent">
+                    <p className="cardHead">DAI Balance</p>
+                    <p gutterBottom className="darkp">
+                    {this.state.balance} DAI
+                    </p>
                   </div>
-                  <div className="form-group mr-sm-2">
-                    <input
-                      id="amount"
-                      type="text"
-                      ref={(input) => { this.amount = input }}
-                      className="form-control"
-                      placeholder="Amount"
-                      required />
+                  <div className="cardContent">
+                    <p className="cardHead">USD Value</p>
+                    <p gutterBottom className="darkp">
+                    $XXX
+                    </p>
                   </div>
-                  <button type="submit" className="btn btn-primary btn-block">Send</button>
-                </form>
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Recipient</th>
-                      <th scope="col">value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    { this.state.transactions.map((tx, key) => {
-                      return (
-                        <tr key={key} >
-                          <td>{tx.returnValues.to}</td>
-                          <td>{window.web3.utils.fromWei(tx.returnValues.value.toString(), 'Ether')}</td>
-                        </tr>
-                      )
-                    }) }
-                  </tbody>
-                </table>
+                </div>
+                </CardContent>
+              </Card>
+              <div id="sendContain">
+              <HomeSend />
               </div>
-            </main>
+          
+            
           </div>
-        </div>
+          <div className="mainblock" id="transactionTable">
+          <div className="transactionMain">
+          <p className="darkp" style={{fontSize:"1.5vw"}}>Transaction History</p>
+            <div className="transactionContent" style={{borderRadius:"15px"}}>
+            <TableContainer style={{ maxHeight: "85%"}}>
+              <Table stickyHeader aria-label="sticky table" >
+                  <TableHead >
+                    <TableRow >
+                      <TableCell align="left" style={{fontSize:"1vw"}}>Recipient Address</TableCell>
+                      <TableCell align="left" style={{fontSize:"1vw"}}>Amount</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    { this.state.transactions.map((tx, key) => {
+                        return (
+                          <TableRow key={key}>
+                          <TableCell align="left" style={{fontSize:"1vw"}}>{tx.returnValues.to}</TableCell>
+                          <TableCell align="left" style={{fontSize:"1vw"}}>{window.web3.utils.fromWei(tx.returnValues.value.toString(), 'Ether')}</TableCell>
+                        </TableRow>
+                        )
+                      }) }
+                  </TableBody>
+                </Table>
+                </TableContainer>
+              </div>
+            </div>
+          </div>
+          </div>
       </div>
     );
   }

@@ -1,0 +1,85 @@
+.donationBlock{
+    display: inline-block;
+    margin-right:10%
+}
+
+.donationMain{
+    display:flex;
+    padding-left: 4%;
+    padding-right:4%;
+    padding-top: 1%;
+    padding-bottom: 2%;
+}
+
+.poster{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2)
+      ),url('./poster.jpeg');
+    border-radius: 25px;
+    background-size: cover;
+    height:43vh;
+    margin-top:28%;
+    padding-top:15%;
+}
+
+.poster1{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2)
+      ),url('../Profile/first.png');
+    background-size: cover;
+    height: 60px;
+    width: 80px;
+    margin-top: -40%;
+    margin-left: 130%;
+}
+
+.poster2{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2)
+      ),url('../Profile/second.png');
+    background-size: cover;
+    height: 60px;
+    width: 80px;
+    margin-top: -43%;
+    margin-left: 220%;
+}
+
+.Jack{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2)
+      ),url('../Profile/Jack.png');
+    border-radius: 25px;
+    background-size: cover;
+    height: 30px;
+    width: 30px;
+    margin-top: -43%;
+    margin-left: 220%;
+}
+
+.Lucy{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2)
+      ),url('../Profile/Lucy.png');
+    border-radius: 25px;
+    background-size: cover;
+    height: 30px;
+    width: 30px;
+    margin-top: -43%;
+    margin-left: 220%;
+}
+
+
+.poster p{
+    font-family: 'Lato', sans-serif;
+    color:white;
+    font-size:1.1vw;
+    line-height:1.7em;
+    margin-left:9%;
+    margin-right:7%;
+    font-weight: bold;
+}

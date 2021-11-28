@@ -11,7 +11,8 @@ function NavLink({
   children,
   to,
   activeOnlyWhenExact,
-  history
+  history,
+  handleClick,
 }) {
   return (
     <Route
@@ -21,12 +22,14 @@ function NavLink({
         <ListItem
           onClick={() => {
             history.push(to);
+            handleClick && handleClick();
           }}
           button
           selected={Boolean(match)}
         >
-          <ListItemIcon>{Icon && <Icon />}</ListItemIcon>
-          <ListItemText>{children}</ListItemText>
+          <ListItemIcon>{Icon && <Icon  style={{fill:'white'}} />}</ListItemIcon>
+          <ListItemText >{children}</ListItemText>
+          
         </ListItem>
       )}
     />
